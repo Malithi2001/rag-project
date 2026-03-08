@@ -1,14 +1,17 @@
 import os
 import pymupdf4llm
 from dotenv import load_dotenv
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_groq import ChatGroq
 
 # 1. SETUP: Load keys and initialize the "Brain"
 load_dotenv()
-llm = ChatGroq(model_name="llama3-8b-8192")
+llm = ChatGroq(
+    model_name="llama-3.1-8b-instant", 
+    groq_api_key=os.getenv("GROQ_API_KEY")
+)
 
 def process_lecture_pdf(file_path):
     print(f"--- Processing: {file_path} ---")
